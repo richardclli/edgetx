@@ -154,6 +154,28 @@ char getPreviousChar(char c, uint8_t position)
   return c - 1;
 }
 
+static bool isNameCharset(int v)
+{
+  char c = (char)v;
+
+  if (c == ' ')
+    return true;
+
+  if (c == '-')
+    return true;
+
+  if (c >= '0' && c <= '9')
+    return true;
+
+  if (c >= 'A' && c <= 'Z')
+    return true;
+
+  if (c >= 'a' && c <= 'z')
+    return true;
+
+  return false;
+}
+
 void editName(coord_t x, coord_t y, char * name, uint8_t size, event_t event, uint8_t active, LcdFlags attr)
 {
   uint8_t mode = 0;
@@ -174,13 +196,7 @@ void editName(coord_t x, coord_t y, char * name, uint8_t size, event_t event, ui
       int8_t v = c;
 
       if (IS_NEXT_EVENT(event) || IS_PREVIOUS_EVENT(event)) {
-        if (attr == ZCHAR) {
-          v = checkIncDec(event, abs(v), 0, ZCHAR_MAX, 0);
-          if (c <= 0) v = -v;
-        }
-        else {
-          v = checkIncDec(event, abs(v), ' ', 'z', 0);
-        }
+        v = checkIncDec(event, abs(v), ' ', 'z', 0, isNameCharset);
       }
 
       switch (event) {
