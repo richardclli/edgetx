@@ -1301,4 +1301,10 @@
 #define TR_USBJOYSTICK_AXIS_COLLISION  "!Axis collision!"
 #define TR_USBJOYSTICK_CIRC_COUTOUT    TR("Circ. cut", "Circular cutout")
 #define TR_VUSBJOYSTICK_CIRC_COUTOUT   "None","X-Y, Z-rX","X-Y, rX-rY"
-#define TR_USBJOYSTICK_APPLY_CHANGES   "Apply changes"
+#define TR_USBJOYSTICK_APPLY_CHANGES   "Appliquer changements"
+
+#define TR_DIGITAL_SERVO          "Servo333HZ"
+#define TR_ANALOG_SERVO           "Servo 50HZ"
+#define TR_SIGNAL_OUTPUT          "Signal output"
+#define TR_SERIAL_BUS             "Serial bus"
+#define TR_SYNC                   "Sync"
