@@ -139,7 +139,7 @@ DSTATUS disk_initialize (
     // tjftl requires 1/64 overhead and some blocks for GC (at least 10)
     // However, if give it more GC blocks, it can help to reduce wearing level and improve performance
     // Simulation is done to give a balanace between wearing and overhead
-    int overheadBlockCount = blockCount / 64 + (flashSizeMB >= 32 ? flashSizeMB * 2 : 32);
+    int overheadBlockCount = blockCount / 64 + 32;
 
     tjftl = tjftl_init(flashRead, flashErase, flashWrite, nullptr, flashSize, (flashSize - overheadBlockCount * 32768)/512, 0);
 
