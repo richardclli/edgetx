@@ -216,8 +216,7 @@ void boardInit()
   rtcInit(); // RTC must be initialized before rambackupRestore() is called
 #endif
  
-  lcdSetInitalFrameBuffer(lcdFront->getData());
-    
+  
 #if defined(DEBUG)
   DBGMCU_APB1PeriphConfig(
       DBGMCU_IWDG_STOP | DBGMCU_TIM1_STOP | DBGMCU_TIM2_STOP |

@@ -151,7 +151,6 @@ set(FIRMWARE_TARGET_SRC
 set(FIRMWARE_SRC
   ${FIRMWARE_SRC}
   targets/common/arm/stm32/audio_dac_driver.cpp
-  targets/common/arm/stm32/dma2d.cpp
   targets/common/arm/stm32/spi_flash.cpp
   targets/common/arm/stm32/diskio_spi_flash.cpp
   targets/common/arm/stm32/stm32_ws2812.cpp
