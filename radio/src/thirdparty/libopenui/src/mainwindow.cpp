@@ -20,7 +20,6 @@
 #include "keyboard_base.h"
 
 #include "lvgl/lvgl.h"
-#include "board.h"
 
 MainWindow * MainWindow::_instance = nullptr;
 

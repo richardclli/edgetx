@@ -261,7 +261,6 @@ set(FIRMWARE_SRC
   targets/common/arm/stm32/heartbeat_driver.cpp
   targets/common/arm/stm32/ads79xx.cpp
   targets/common/arm/stm32/diskio_sdio.cpp
-  targets/common/arm/stm32/dma2d.cpp
   targets/common/arm/stm32/spi_flash.cpp
   targets/common/arm/stm32/diskio_spi_flash.cpp
   drivers/frftl.cpp
@@ -294,4 +293,5 @@ set(STM32LIB_SRC
   STM32F4xx_StdPeriph_Driver/src/stm32f4xx_fmc.c
   STM32F4xx_StdPeriph_Driver/src/stm32f4xx_ltdc.c
   STM32F4xx_StdPeriph_Driver/src/stm32f4xx_tim.c
+  STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma2d.c
   )

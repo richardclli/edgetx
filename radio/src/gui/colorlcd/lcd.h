@@ -22,6 +22,7 @@
 #ifndef _LCD_H_
 #define _LCD_H_
 
+#include "bitmapbuffer.h"
 #include "opentx_types.h"
 
 #include "colors.h"
@@ -50,7 +51,7 @@ void lcdInitDisplayDriver();
 // Patch the draw context to allow for direct drawing
 void lcdInitDirectDrawing();
 
-void lcdClear();
+inline void lcdClear() { lcd->clear(); }
 
 void lcdRefresh();
 void lcdFlushed();
