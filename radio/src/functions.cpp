@@ -22,6 +22,9 @@
 #include "opentx.h"
 #include "switches.h"
 #include "boards/generic_stm32/rgb_leds.h"
+#include "debug.h"
+
+extern const char* boardLcdType;
 
 #if defined(COLORLCD)
 void setRequestedMainView(uint8_t view);
@@ -43,6 +46,7 @@ void testFunc()
 
   // for testing the WD reset uncomment the following line
   // while (1);
+  TRACE("LCD: %s", boardLcdType);
 }
 #endif
 
