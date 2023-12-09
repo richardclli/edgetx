@@ -91,5 +91,6 @@ bool boardBacklightOn;
 
 bool isBacklightEnabled()
 {
+  if (globalData.unexpectedShutdown) return true;
   return boardBacklightOn;
 }

@@ -1,12 +1,17 @@
 /**
   ******************************************************************************
-  * @file      startup_stm32f42_43xx.s
+  * @file      startup_stm32f40_41xxx.s
   * @author    MCD Application Team
-  * @brief     STM32F42xxx/43xxx Devices vector table for RIDE7 toolchain.
+  * @version   V1.3.0
+  * @date      08-November-2013
+  * @brief     STM32F40xxx/41xxx Devices vector table for RIDE7 toolchain.          
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
   *                - Set the vector table entries with the exceptions ISR address
+  *                - Configure the clock system and the external SRAM mounted on 
+  *                  STM324xG-EVAL board to be used as data memory (optional, 
+  *                  to be enabled by user)
   *                - Branches to main in the C library (which eventually
   *                  calls main()).
   *            After Reset the Cortex-M4 processor is in Thread mode,
@@ -14,19 +19,25 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2013 STMicroelectronics</center></h2>
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+  * You may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at:
+  *
+  *        http://www.st.com/software_license_agreement_liberty_v2
+  *
+  * Unless required by applicable law or agreed to in writing, software 
+  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
   *
   ******************************************************************************
   */
     
   .syntax unified
-  .cpu cortex-m4
+  .cpu cortex-m3
   .fpu softvfp
   .thumb
 
@@ -58,47 +69,52 @@ defined in linker script */
     .section  .text.Reset_Handler
   .weak  Reset_Handler
   .type  Reset_Handler, %function
-Reset_Handler:
-  ldr   sp, =_estack    /* set stack pointer */
+Reset_Handler:  
+
+  bl pwrResetHandler    /*jump to WDT reset handler where soft power control pin is turned on as soon as possible */
 
 /* Copy the data segment initializers from flash to SRAM */  
-  ldr r0, =_sdata
-  ldr r1, =_edata
-  ldr r2, =_sidata
-  movs r3, #0
+  movs  r1, #0
   b  LoopCopyDataInit
 
 CopyDataInit:
-  ldr r4, [r2, r3]
-  str r4, [r0, r3]
-  adds r3, r3, #4
+  ldr  r3, =_sidata
+  ldr  r3, [r3, r1]
+  str  r3, [r0, r1]
+  adds  r1, r1, #4
     
 LoopCopyDataInit:
-  adds r4, r0, r3
-  cmp r4, r1
-  bcc CopyDataInit
-
-/* jump to soft power control as soon as possible */
-  bl pwrResetHandler
-
-/* Zero fill the bss segment. */  
+  ldr  r0, =_sdata
+  ldr  r3, =_edata
+  adds  r2, r0, r1
+  cmp  r2, r3
+  bcc  CopyDataInit
   ldr  r2, =_sbss
-  ldr r4, =_ebss
-  movs r3, #0
   b  LoopFillZerobss
-
+/* Zero fill the bss segment. */  
 FillZerobss:
-  str  r3, [r2]
-  adds r2, r2, #4
+  movs  r3, #0
+  str  r3, [r2], #4
     
 LoopFillZerobss:
-  cmp r2, r4
-  bcc FillZerobss
+  ldr  r3, = _ebss
+  cmp  r2, r3
+  bcc  FillZerobss
+
+/*Paint Main Stack */
+  ldr  r2, = _main_stack_start
+PaintMainStack:
+  movs r3, #0x55555555
+  str  r3, [r2], #4
+LoopPaintMainStack:
+  ldr  r3, = _estack
+  cmp  r2, r3
+  bcc  PaintMainStack
 
 /* Call the clock system intitialization function.*/
   bl  SystemInit
-/* Call static constructors */
-  bl  __libc_init_array 
+/* Call C++ constructors for static objects */
+  bl  __libc_init_array
 /* Call the application's entry point.*/
   bl  main
   bx  lr    

@@ -25,7 +25,6 @@
 #include "io/multi_protolist.h"
 #include "telemetry/multi.h"
 #include "mixer_scheduler.h"
-#include "hal/abnormal_reboot.h"
 
 // for the  MULTI protocol definition
 // see https://github.com/pascallanger/DIY-Multiprotocol-TX-Module
@@ -238,10 +237,8 @@ static void* multiInit(uint8_t module)
   getMultiModuleStatus(module).flags = 0;
 
 #if defined(MULTI_PROTOLIST)
-  if (!UNEXPECTED_SHUTDOWN()) {
-    TRACE("enablePulsesInternalModule(): trigger scan");
-    MultiRfProtocols::instance(module)->triggerScan();
-  }
+  TRACE("enablePulsesInternalModule(): trigger scan");
+  MultiRfProtocols::instance(module)->triggerScan();
 #endif
 
   return mod_st;

@@ -21,7 +21,6 @@
 
 #include "board.h"
 #include "lcd.h"
-#include "hal/abnormal_reboot.h"
 
 #if !defined(BOOT)
 #include "myeeprom.h"

@@ -19,7 +19,6 @@ set(SIMU_DRIVERS
   gyro_driver.cpp
   bt_driver.cpp
   timers_driver.cpp
-  abnormal_reboot.cpp
   )
 
 set(HW_DESC_JSON ${FLAVOUR}.json)

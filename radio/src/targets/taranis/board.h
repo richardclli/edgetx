@@ -25,7 +25,7 @@
 #include <inttypes.h>
 #include "hal.h"
 #include "hal/serial_port.h"
-#include "hal/watchdog_driver.h"
+#include "watchdog_driver.h"
 
 #include "definitions.h"
 #include "opentx_constants.h"
@@ -214,6 +214,8 @@ uint32_t pwrPressedDuration();
 #endif
 void pwrResetHandler();
 #define pwrForcePressed()   false
+
+bool UNEXPECTED_SHUTDOWN();
 
 // Backlight driver
 #if defined(OLED_SCREEN)

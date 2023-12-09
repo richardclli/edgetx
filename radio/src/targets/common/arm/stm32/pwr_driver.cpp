@@ -20,7 +20,7 @@
  */
 
 #include "board.h"
-#include "hal/abnormal_reboot.h"
+#include "watchdog_driver.h"
 
 void pwrInit()
 {

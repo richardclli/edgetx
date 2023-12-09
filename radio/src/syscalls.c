@@ -27,10 +27,10 @@
 
 #undef errno
 extern int errno;
-extern int _heap_start;
+extern int _end;
 extern int _heap_end;
 
-unsigned char * heap = (unsigned char *)&_heap_start;
+unsigned char * heap = (unsigned char *)&_end;
 
 extern caddr_t _sbrk(int nbytes)
 {

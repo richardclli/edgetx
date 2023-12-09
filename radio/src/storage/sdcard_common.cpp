@@ -25,8 +25,6 @@
 #include "modelslist.h"
 #include "model_init.h"
 
-#include "hal/abnormal_reboot.h"
-
 #if defined(COLORLCD)
   #include "theme.h"
 #endif
@@ -78,7 +76,7 @@ void storageFormat()
 void storageCheck(bool immediately)
 {
   // Don't write anything to SD card if in EM
-  if (UNEXPECTED_SHUTDOWN()) return;
+  if (globalData.unexpectedShutdown) return;
 
   if (storageDirtyMsk & EE_GENERAL) {
     TRACE("eeprom write general");
