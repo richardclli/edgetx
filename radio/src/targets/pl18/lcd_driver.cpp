@@ -1150,6 +1150,7 @@ void LCD_ST7796S_Init(void) {
   lcdWriteData( 0x96 );
 
   lcdWriteCommand( 0x36 );
+  if (LCD_W != LCD_PHYS_W) {
   lcdWriteData( 0x28 );
 
   lcdWriteCommand( 0x2A );
@@ -1162,6 +1163,20 @@ void LCD_ST7796S_Init(void) {
   lcdWriteData( 0x00 );
   lcdWriteData( 0x01 );
   lcdWriteData( 0x3F );
+  } else {
+    lcdWriteData( 0x88 );
+
+    lcdWriteCommand( 0x2A );
+    lcdWriteData( 0x00 );
+    lcdWriteData( 0x00 );
+    lcdWriteData( 0x01 );
+    lcdWriteData( 0x3F );
+    lcdWriteCommand( 0x2B );
+    lcdWriteData( 0x00 );
+    lcdWriteData( 0x00 );
+    lcdWriteData( 0x01 );
+    lcdWriteData( 0xDF );
+  }
 
   lcdWriteCommand( 0x3A );
   lcdWriteData( 0x66 );
