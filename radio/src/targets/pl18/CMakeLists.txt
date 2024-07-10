@@ -43,7 +43,7 @@ add_definitions(-DSTM32_SUPPORT_32BIT_TIMERS)
 
 if(PCBREV STREQUAL NB4P)
   set(FLAVOUR nb4p)
-  add_definitions(-DRADIO_NB4P)
+  add_definitions(-DRADIO_NB4P -DUSE_HATS_AS_KEYS)
   set(WIRELESS_CHARGER NO)
 elseif(PCBREV STREQUAL PL18EV)
   set(FLAVOUR pl18ev)
