@@ -472,6 +472,7 @@
 #define SERIAL_RCC_AHB1Periph           0
 #define SERIAL_RCC_APB1Periph           0
 
+/*
 #if defined(RADIO_NB4P)
 // Rotary Encoder
 #define ROTARY_ENCODER_RCC_APB1Periph   RCC_APB1Periph_TIM12
@@ -494,6 +495,7 @@
 #else
 #define ROTARY_ENCODER_RCC_APB1Periph   0
 #endif
+*/
 
 // SPI NOR Flash
 #define FLASH_SPI                      SPI6

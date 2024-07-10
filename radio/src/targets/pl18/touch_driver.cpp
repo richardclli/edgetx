@@ -185,6 +185,8 @@ static bool ft6236TouchRead(uint16_t * X, uint16_t * Y)
   nbTouch &= TOUCH_FT6206_MASK_TD_STAT;
   bool hasTouch = nbTouch > 0;
 
+  TRACE("%s: nbTouch=%d", "FT6236", nbTouch);
+
   if (hasTouch) {
     uint8_t dataxy[4];
     // Read X and Y positions and event
@@ -196,6 +198,9 @@ static bool ft6236TouchRead(uint16_t * X, uint16_t * Y)
     *Y = ((dataxy[2] & 0x0f) << 8) | dataxy[3];
 
     uint8_t event = (dataxy[0] & TOUCH_FT6206_EVT_MASK) >> TOUCH_FT6206_EVT_SHIFT;
+
+    TRACE("%s: event=%d,X=%d,Y=%d", "FT6236", event, *X, *Y);
+
     return event == TOUCH_FT6206_EVT_CONTACT;
   }
   return false;
@@ -232,6 +237,8 @@ static bool cst340TouchRead(uint16_t * X, uint16_t * Y)
   if (X) *X = ((data[1]<<4) + ((data[3]>>4)&0x0f));
   // Send back Y position to caller
   if (Y) *Y = ((data[2]<<4) + ((data[3])&0x0f));
+
+  TRACE("%s: event=%d,X=%d,Y=%d", "CST340", data[0], *X, *Y);
 
   return data[0] == TOUCH_CST340_EVT_CONTACT;
 }
@@ -450,9 +457,7 @@ struct TouchState touchPanelRead()
   if (internalTouchState.event == TE_UP || internalTouchState.event == TE_SLIDE_END)
     internalTouchState.event = TE_NONE;
 
-#if defined(DEBUG)
   TRACE("%s: event=%d,X=%d,Y=%d", TOUCH_CONTROLLER_STR[touchController], ret.event, ret.x, ret.y);
-#endif
 
   return ret;
 }
