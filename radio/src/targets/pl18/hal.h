@@ -348,11 +348,10 @@
 
 #define ADC_DIRECTION {       \
     0,0, /* gimbals */    \
-    0,0,0,0,   /* pots */       \
+    0,0,   /* pots */       \
+    0,0,0,0,   /* ext1-4 */       \
     0,	     /* vbat */       \
-    0,       /* rtc_bat */    \
-    0,      /* SWA */        \
-    0      /* SWB */        \
+    0       /* rtc_bat */    \
   }
 
 #endif

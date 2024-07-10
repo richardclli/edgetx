@@ -450,9 +450,7 @@ struct TouchState touchPanelRead()
   if (internalTouchState.event == TE_UP || internalTouchState.event == TE_SLIDE_END)
     internalTouchState.event = TE_NONE;
 
-#if defined(DEBUG)
   TRACE("%s: event=%d,X=%d,Y=%d", TOUCH_CONTROLLER_STR[touchController], ret.event, ret.x, ret.y);
-#endif
 
   return ret;
 }
