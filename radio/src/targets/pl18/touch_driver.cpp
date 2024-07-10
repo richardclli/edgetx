@@ -325,11 +325,11 @@ static const TouchControllerDescriptor CHSC5448 =
 
 void _detect_touch_controller()
 {
-  if (stm32_i2c_is_dev_ready(TOUCH_I2C_BUS, TOUCH_CST340_I2C_ADDRESS, 3, I2C_TIMEOUT_MAX) == 0) {
+  if (i2c_dev_ready(TOUCH_I2C_BUS, TOUCH_CST340_I2C_ADDRESS) == 0) {
     touchController = TC_CST340;
     tcd = &CST340;
     TouchControllerType = 0;
-  } else if (stm32_i2c_is_dev_ready(TOUCH_I2C_BUS, TOUCH_CHSC5448_I2C_ADDRESS, 3, I2C_TIMEOUT_MAX) == 0) {
+  } else if (i2c_dev_ready(TOUCH_I2C_BUS, TOUCH_CHSC5448_I2C_ADDRESS) == 0) {
     touchController = TC_CHSC5448;
     tcd = &CHSC5448;
     TouchControllerType = 0;

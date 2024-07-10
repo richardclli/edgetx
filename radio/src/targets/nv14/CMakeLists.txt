@@ -124,7 +124,8 @@ set(BOOTLOADER_SRC ${BOOTLOADER_SRC} $<TARGET_OBJECTS:board_bl>)
 # Firmware board library
 add_library(board OBJECT EXCLUDE_FROM_ALL
   ${BOARD_COMMON_SRC}
-  ${TARGET_SRC_DIR}/../pl18/${TOUCH_DRIVER}
+#  ${TARGET_SRC_DIR}/../pl18/${TOUCH_DRIVER}
+  ${TARGET_SRC_DIR}/${TOUCH_DRIVER}
   ${TARGET_SRC_DIR}/battery_driver.cpp
   targets/common/arm/stm32/delays_driver.cpp
   targets/common/arm/stm32/heartbeat_driver.cpp
@@ -136,6 +137,11 @@ add_library(board OBJECT EXCLUDE_FROM_ALL
   targets/common/arm/stm32/trainer_driver.cpp
   targets/common/arm/stm32/vs1053b.cpp
 )
+
+if(DEBUG)
+  target_compile_definitions(board PRIVATE -DDEBUG)
+endif()
+
 set(FIRMWARE_SRC ${FIRMWARE_SRC} $<TARGET_OBJECTS:board>)
 
 set(FIRMWARE_SRC

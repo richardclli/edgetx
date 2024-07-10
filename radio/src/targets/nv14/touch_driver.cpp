@@ -274,6 +274,12 @@ static void ft6x06_TS_GetXY(uint16_t * X, uint16_t * Y, uint32_t * event)
     *Y = ((dataxy[2] & FT6206_MSB_MASK) << 8) | (dataxy[3] & FT6206_LSB_MASK);
 
     *event = (dataxy[0] & FT6206_TOUCH_EVT_FLAG_MASK) >> FT6206_TOUCH_EVT_FLAG_SHIFT;
+ 
+ #if defined(DEBUG)
+  TRACE("%s: event=%d,X=%d,Y=%d", "FT6236", *event, *X, *Y);
+#endif
+
+
     /*
     uint32_t weight;
     uint32_t area;
@@ -497,6 +503,9 @@ TouchState touchPanelRead()
   internalTouchState.deltaY = 0;
   if(internalTouchState.event == TE_UP || internalTouchState.event == TE_SLIDE_END)
     internalTouchState.event = TE_NONE;
+#if defined(DEBUG)
+  TRACE("%s: event=%d,X=%d,Y=%d", touchController == TC_FT6236? "FT6236" : "CST836U", ret.event, ret.x, ret.y);
+#endif
   return ret;
 }
 

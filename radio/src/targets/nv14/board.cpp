@@ -43,7 +43,8 @@
 
 #include "lcd_driver.h"
 #include "battery_driver.h"
-#include "../pl18/touch_driver.h"
+#include "touch_driver.h"
+//#include "../pl18/touch_driver.h"
 
 #include "bitmapbuffer.h"
 #include "colors.h"
@@ -130,8 +131,8 @@ void boardInit()
   battery_charge_init();
   flysky_gimbal_init();
   timersInit();
-//  TouchInit();
-  touchPanelInit();
+  TouchInit();
+//  touchPanelInit();
   usbInit();
 
   uint32_t press_start = 0;
