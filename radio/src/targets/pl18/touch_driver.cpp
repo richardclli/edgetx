@@ -36,7 +36,7 @@
 #include "debug.h"
 
 #define TAP_TIME 25
-#define I2C_TIMEOUT_MAX 5 // 5 ms
+#define I2C_TIMEOUT_MAX 10 // 5 ms
 
 // FT6236 definitions
 #define TOUCH_FT6236_I2C_ADDRESS          (0x70>>1)
@@ -196,6 +196,11 @@ static bool ft6236TouchRead(uint16_t * X, uint16_t * Y)
     *Y = ((dataxy[2] & 0x0f) << 8) | dataxy[3];
 
     uint8_t event = (dataxy[0] & TOUCH_FT6206_EVT_MASK) >> TOUCH_FT6206_EVT_SHIFT;
+
+#if defined(DEBUG)
+  TRACE("%s: event=%d,X=%d,Y=%d", TOUCH_CONTROLLER_STR[touchController], event, *X, *Y);
+#endif
+
     return event == TOUCH_FT6206_EVT_CONTACT;
   }
   return false;
@@ -449,9 +454,9 @@ struct TouchState touchPanelRead()
   internalTouchState.deltaY = 0;
   if (internalTouchState.event == TE_UP || internalTouchState.event == TE_SLIDE_END)
     internalTouchState.event = TE_NONE;
-
+#if defined(DEBUG)
   TRACE("%s: event=%d,X=%d,Y=%d", TOUCH_CONTROLLER_STR[touchController], ret.event, ret.x, ret.y);
-
+#endif
   return ret;
 }
 

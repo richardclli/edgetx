@@ -32,6 +32,7 @@
 #include "lcd.h"
 #include "lcd_driver.h"
 
+uint8_t TouchControllerType = 0;  //0:cst340; 1 ft6236
 static LTDC_HandleTypeDef hltdc;
 static void* initialFrameBuffer = nullptr;
 
